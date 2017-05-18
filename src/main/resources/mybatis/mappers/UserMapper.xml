@@ -198,6 +198,7 @@
     select count(1)
     from irvingmall_user
     where id != #{userId}
+    and email = #{email}
   </select>
 
 
