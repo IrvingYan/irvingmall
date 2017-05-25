@@ -30,7 +30,7 @@ public class FTPUtil {
         logger.info("开始连接ftp服务器");
         boolean result = ftpUtil.uploadFile("image",fileList);
 
-        logger.info("结束连接ftp服务器，结束上传，上传结果{}");
+        logger.info("结束连接ftp服务器，结束上传，上传结果{}",result);
 
         return result;
     }
