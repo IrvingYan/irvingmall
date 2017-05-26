@@ -24,15 +24,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from ymall_product
+    from irvingmall_product
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from ymall_product
+    delete from irvingmall_product
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yandong.pojo.Product">
-    insert into ymall_product (id, category_id, name, 
+    insert into irvingmall_product (id, category_id, name, 
       subtitle, main_image, sub_images, 
       detail, price, stock, 
       status, create_time, update_time
@@ -44,7 +44,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yandong.pojo.Product">
-    insert into ymall_product
+    insert into irvingmall_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -123,7 +123,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.yandong.pojo.Product">
-    update ymall_product
+    update irvingmall_product
     <set>
       <if test="categoryId != null">
         category_id = #{categoryId,jdbcType=INTEGER},
@@ -162,7 +162,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yandong.pojo.Product">
-    update ymall_product
+    update irvingmall_product
     set category_id = #{categoryId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       subtitle = #{subtitle,jdbcType=VARCHAR},
@@ -196,5 +196,21 @@
         and id = #{productId}
       </if>
     </where>
+  </select>
+
+  <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
+    select     
+    <include refid="Base_Column_List"/>
+    from irvingmall_product
+    where status=1
+    <if test="productName != null">
+      and name like #{productName}
+    </if>
+    <if test="categoryIdList != null">
+      and category_id in
+      <foreach item="item" index="index" open="(" separator="," close=")" collection="categoryIdList">
+        #{item}
+      </foreach>
+    </if>
   </select>
 </mapper>
